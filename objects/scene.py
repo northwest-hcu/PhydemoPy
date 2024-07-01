@@ -1,11 +1,12 @@
-from enum import Enum
+from typing import TypeAlias, Literal
 import json
 
-class Mode(Enum):
-    rays = 'rays'
-    extended = 'extended'
-    images = 'images'
-    observer = 'observer'
+Mode: TypeAlias = Literal[
+    'rays',
+    'extended',
+    'images',
+    'observer'
+]
 
 class Scene:
     def __init__(
@@ -15,12 +16,12 @@ class Scene:
             version: int=5, 
             width: int=1300, 
             height: int=1000,
-            mode: Mode = Mode.rays,
+            mode: Mode = 'rays',
             rayModeDensity: float=1.0,
             showGrid: bool=True,
             snapToGrid: bool=True,
             lockObjs: bool=True,
-            girdSize: int=20,
+            gridSize: int=20,
             observer: dict={
                 "c": {
                     "x": 0,
@@ -45,11 +46,42 @@ class Scene:
         self.showGrid = showGrid
         self.snapToGrid = snapToGrid
         self.lockObjs = lockObjs
-        self.gridSize = girdSize
+        self.gridSize = gridSize
         self.observer = observer
         self.origin = origin
         self.scale = scale
         self.simulateColors = simulateColors
+
+    @property
+    def data(self) -> dict:
+        return {
+            'objs': self.objs,
+            'modules': self.modules,
+            'version': self.version,
+            'width': self.width,
+            'height': self.height,
+            'mode': self.mode,
+            'rayModeDensity': self.rayModeDensity,
+            'showGrid': self.showGrid,
+            'snapToGrid': self.snapToGrid,
+            'lockObjs': self.lockObjs,
+            'gridSize': self.gridSize,
+            'observer': self.observer,
+            'origin': self.origin,
+            'scale': self.scale,
+            'simulateColors': self.simulateColors
+        }
+
+    @property
+    def mode(self) -> Mode:
+        return self.__mode
+    
+    @mode.setter
+    def mode(self, value: Mode) -> None:
+        if value in ['rays','extended','images','observer']:
+            self.__mode = value
+        else:
+            self.__mode = 'rays'
 
     @classmethod
     def load(cls, path: str) -> 'Scene':
@@ -59,7 +91,7 @@ class Scene:
 
     def output(self, path: str | None=None) -> None | str:
         if path is None:
-            return json.dumps(self)
+            return json.dumps(self.data)
         else:
             with open(path, 'w') as fp:
-                json.dump(self, fp, indent=2)
+                json.dump(self.data, fp, indent=2)

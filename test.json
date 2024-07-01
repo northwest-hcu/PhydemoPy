@@ -1,0 +1,26 @@
+{
+  "objs": [],
+  "modules": [],
+  "version": 5,
+  "width": 1300,
+  "height": 1000,
+  "mode": "rays",
+  "rayModeDensity": 2.3,
+  "showGrid": true,
+  "snapToGrid": true,
+  "lockObjs": true,
+  "gridSize": 20,
+  "observer": {
+    "c": {
+      "x": 0,
+      "y": 0
+    },
+    "r": 20
+  },
+  "origin": {
+    "x": 0,
+    "y": 0
+  },
+  "scale": 1.0,
+  "simulateColors": true
+}
