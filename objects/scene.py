@@ -1,5 +1,6 @@
 from typing import TypeAlias, Literal
 import json
+from .position import Position
 
 Mode: TypeAlias = Literal[
     'rays',
@@ -23,16 +24,10 @@ class Scene:
             lockObjs: bool=True,
             gridSize: int=20,
             observer: dict={
-                "c": {
-                    "x": 0,
-                    "y": 0
-                },
+                "c": Position(0, 0),
                 "r": 20
             },
-            origin: dict={
-                "x": 0,
-                "y": 0
-            },
+            origin: Position=Position(0, 0),
             scale: float=1.0,
             simulateColors: bool=True
         ) -> None:
@@ -66,8 +61,8 @@ class Scene:
             'snapToGrid': self.snapToGrid,
             'lockObjs': self.lockObjs,
             'gridSize': self.gridSize,
-            'observer': self.observer,
-            'origin': self.origin,
+            'observer': {"c": self.observer["c"].value, "r": self.observer["r"]},
+            'origin': self.origin.value,
             'scale': self.scale,
             'simulateColors': self.simulateColors
         }
