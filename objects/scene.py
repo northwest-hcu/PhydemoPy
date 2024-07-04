@@ -50,7 +50,7 @@ class Scene:
     @property
     def data(self) -> dict:
         return {
-            'objs': self.objs,
+            'objs': [obj.value for obj in self.objs],
             'modules': self.modules,
             'version': self.version,
             'width': self.width,
