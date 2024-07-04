@@ -1,6 +1,7 @@
 from .position import Position
+from .obj import Obj
 
-class CustomGlass:
+class CustomGlass(Obj):
     def __init__(
             self,
             p1: Position=Position(0, 0),

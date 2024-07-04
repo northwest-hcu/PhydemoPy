@@ -16,6 +16,10 @@ class Position:
         self.x = self.x + dx
         self.y = self.y + dy
 
+    @staticmethod
+    def midpoint(p1: 'Position', p2: 'Position') -> 'Position':
+        return Position((p1.x + p2.x) / 2, (p1.y, p2.y) / 2)
+
     @property
     def value(self) -> dict:
         return {
