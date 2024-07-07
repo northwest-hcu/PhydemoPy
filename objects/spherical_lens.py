@@ -42,5 +42,12 @@ class SphericalLens(Obj):
         cy = (p1.y + p2.y) / 2
         self.path = [
             Path(p1.x - dpx * thick, p1.y - dpy * thick, arc=False),
-            Path()
+            Path(p1.x + dpx * thick, p1.y - dpy * thick, arc=False),
+            Path(cx + dpx * thick * 2, cy + dpy * thick * 2, arc=True),
+            Path(p2.x + dpx * thick, p2.y + dpy * thick, arc=False),
+            Path(p2.x - dpx * thick, p2.y - dpy * thick, arc=False),
+            Path(cx - dpx * thick * 2, cy - dpy * thick * 2, arc=True)
         ]
+    
+    def createLensDR1R2(self):
+        p1 = self.p1 | Position.midpoint()
